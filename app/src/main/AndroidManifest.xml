@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.Tirax.plasma"
+    android:versionCode="7"
+    android:versionName="4.3">
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21"
+        tools:overrideLibrary="me.rorschach.library"/>
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/NoTitle">
+        <receiver
+            android:name="com.Tirax.plasma.MyDeviceAdminReciver"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/my_admin" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.Tirax.plasma.StartMyActivityAtBootReceiver"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="main.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="main.activity.StartActivity" />
+        <activity android:name="main.activity.AskKeyActivity" />
+        <activity android:name="main.activity.StopActivity" />
+        <activity android:name="main.activity.ShowLogCat" />
+        <activity android:name="main.activity.MainSettingsActivity" />
+        <activity android:name="main.activity.Auto.AutoActivity" />
+        <activity android:name="main.activity.Auto.SelectStep" />
+        <activity android:name="main.activity.ShowTimes" />
+        <activity android:name="main.activity.ShowSerialNumber" />
+        <activity android:name="main.activity.EnterSerialActivity" />
+        <activity android:name="main.activity.Test.TestStopActivity" />
+        <activity android:name="main.activity.Test.TestStartActivity" />
+        <activity android:name="main.activity.MainSettings" />
+        <activity
+            android:name="main.activity.EnterPassActivity"
+            android:label="@string/title_activity_enter_pass" />
+        <activity
+            android:name="main.activity.Test.TestResult"
+            android:label="@string/title_activity_test_result"></activity>
+
+        <activity
+            android:name="main.activity.Test.TesterActivity"
+            android:label="@string/title_activity_test_result"></activity>
+    </application>
+
+</manifest>

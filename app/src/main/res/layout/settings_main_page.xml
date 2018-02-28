@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:text="Logs"
+        android:id="@+id/btn_settings_logs" />
+
+    <Button
+        android:layout_width="181dp"
+        android:layout_height="wrap_content"
+        android:text="Work&apos;s Times"
+        android:id="@+id/btn_settings_time" />
+
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        android:id="@+id/btn_settings_test" />
+
+    <Button
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:text="Serial"
+        android:id="@+id/btn_settings_serial" />
+
+    <Button
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/btn_settings_back" />
+
+    <Button
+        android:layout_width="179dp"
+        android:layout_height="wrap_content"
+        android:text="Exit"
+        android:id="@+id/btn_settings_exit" />
+</LinearLayout>

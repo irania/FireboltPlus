@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines = "10000"
+		android:scrollbars = "vertical"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/btn_logcat_filter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        android:id="@+id/btn_logcat_filter"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/txt_filter"
+        android:layout_toEndOf="@+id/txt_filter" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textAutoComplete"
+        android:ems="10"
+        android:id="@+id/txt_filter"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tirax"
+        android:id="@+id/btn_filter_tirax"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btn_filter_back"
+        android:layout_toStartOf="@+id/btn_filter_back" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Level 1"
+        android:id="@+id/btn_filter_send"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btn_filter_tirax"
+        android:layout_toStartOf="@+id/btn_filter_tirax" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Level 4"
+        android:id="@+id/btn_filter_rec"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btn_filter_send"
+        android:layout_toStartOf="@+id/btn_filter_send" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:id="@+id/btn_filter_clear"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/btn_logcat_filter"
+        android:layout_toEndOf="@+id/btn_logcat_filter" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/btn_filter_back"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Refresh"
+        android:id="@+id/btn_filter_refresh"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/btn_filter_clear"
+        android:layout_toEndOf="@+id/btn_filter_clear" />
+
+</RelativeLayout>

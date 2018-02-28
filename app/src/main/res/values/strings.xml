@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">Plasma</string>
+
+    <string name="invisible">invisible</string>
+    <string name="title_activity_enter_pass">EnterPassActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_frequency">FrequencyActivity</string>
+    <string name="version">3.0</string>
+    <string name="title_activity_test_result">TestResult</string>
+
+</resources>

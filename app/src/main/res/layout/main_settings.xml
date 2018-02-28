@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background_RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fractionalmainready"
+    android:orientation="vertical">
+
+
+    <me.rorschach.library.ShaderSeekArc
+        android:id="@+id/seek_arc_power"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        app:startValue="16"
+        app:endValue="28"
+        app:progress="24"
+        app:startColor="0xFFFFF314"
+        app:endColor="0x890f0f"
+        app:startAngle="-225"
+        app:endAngle="45"
+        app:arcWidthRate="0.4"
+        app:showMark="false"
+        app:showProgress="false"
+        app:markSize="30"
+        app:markColor="0xff33B5E5"
+        app:progressTextSize="35"
+        app:progressTextColor="0xffFFBB33"
+        app:lineColor="0xff33B5E5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="5dp"
+        android:scaleX="-1"/>
+
+    <me.rorschach.library.ShaderSeekArc
+        android:id="@+id/seek_arc_length"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        app:startValue="16"
+        app:endValue="28"
+        app:progress="24"
+        app:startColor="0xFFFFF314"
+        app:endColor="0x890f0f"
+        app:startAngle="-225"
+        app:endAngle="45"
+        app:arcWidthRate="0.4"
+        app:showMark="false"
+        app:showProgress="false"
+        app:markSize="30"
+        app:markColor="0xff33B5E5"
+        app:progressTextSize="35"
+        app:progressTextColor="0xffFFBB33"
+        app:lineColor="0xff33B5E5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="130dp"
+        android:layout_marginRight="5dp"
+        />
+
+    <com.Tirax.plasma.TextFont
+        android:id="@+id/txt_power"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:text="10"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textSize="22dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginLeft="70dp"
+        android:gravity="center"/>
+
+    <com.Tirax.plasma.TextFont
+        android:id="@+id/txt_length"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:text="99"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textSize="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="240dp"
+        android:layout_marginRight="60dp"
+        android:gravity="center"/>
+
+    <com.Tirax.plasma.TextFont
+        android:id="@+id/txt_pulse"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:text="10"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textSize="22dp"
+        android:layout_marginLeft="385dp"
+        android:layout_marginTop="250dp"
+        android:rotation="35"
+        android:gravity="center"/>
+    <com.Tirax.plasma.TextFont
+        android:id="@+id/txt_shot"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:text="10"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textSize="22dp"
+        android:layout_marginLeft="245dp"
+        android:layout_marginTop="250dp"
+        android:rotation="-35"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/btn_ready_pause"
+        android:layout_width="265dp"
+        android:layout_height="105dp"
+        android:layout_alignParentLeft="true"
+        android:alpha="0"
+        android:layout_marginLeft="270dp"
+        android:layout_marginTop="370dp"
+        android:text="Button" />
+    <Button
+        android:id="@+id/btn_inc_pulse"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:alpha="0"
+        android:layout_marginLeft="450dp"
+        android:layout_marginTop="145dp"
+        android:text="Button" />
+    <Button
+        android:id="@+id/btn_inc_shot"
+        android:layout_width="120dp"
+        android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:alpha="0"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="145dp"
+        android:text="Button" />
+    <Button
+        android:id="@+id/btn_dec_pulse"
+        android:layout_width="90dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:alpha="0"
+        android:layout_marginLeft="400dp"
+        android:layout_marginTop="295dp"
+        android:text="Button" />
+    <Button
+        android:id="@+id/btn_dec_shot"
+        android:layout_width="90dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:alpha="0"
+        android:layout_marginLeft="310dp"
+        android:layout_marginTop="295dp"
+        android:text="Button" />
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:alpha="0"
+        android:text="Button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <Button
+        android:id="@+id/btn_settings"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:alpha="0"
+        android:text="Button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_shotype"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="250dp"/>
+
+    <Button
+        android:id="@+id/btn_dot"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:alpha="0"
+        android:text="Button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="250dp"/>
+
+    <Button
+        android:id="@+id/btn_spray"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:alpha="0"
+        android:text="Button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="355dp"/>
+
+    <Button
+        android:id="@+id/btn_pulse"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:alpha="0"
+        android:text="Button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="455dp"/>
+
+
+
+</RelativeLayout>

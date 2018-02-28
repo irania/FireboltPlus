@@ -1,0 +1,11 @@
+<!--?xml version="1.0" encoding="utf-8"?-->  
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"  android:layout_height="wrap_content">
+    <uses-policies>  
+        <limit-password>  
+        <watch-login>  
+        <reset-password>  
+        <force-lock>  
+        <wipe-data>  
+    </wipe-data></force-lock></reset-password></watch-login></limit-password></uses-policies>  
+</device-admin>  

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_height="400dp"
+    android:layout_width="600dp"
+    android:background="@drawable/summary_background"
+    android:orientation="vertical" >
+
+    <com.Tirax.plasma.TextFont
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:text="summary"
+        android:textColor="#ac0018"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="151dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="#ac0018"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="38dp"
+        android:id="@+id/view" />
+
+    <TextView
+        android:id="@+id/txt_summery_monobi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Error Happened in kernel"
+        android:textColor="#ac0018"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/view"
+        android:layout_toRightOf="@+id/img_summary_freq"
+        android:layout_toEndOf="@+id/img_summary_freq"
+        android:textIsSelectable="false" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/img_summary_plate"
+        android:background="@drawable/socketde"
+        android:layout_below="@+id/img_summary_low"
+        android:layout_toRightOf="@+id/img_summary_handpiece" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/img_summary_cav"
+        android:background="@drawable/socketde"
+        android:layout_below="@+id/img_summary_plate"
+        android:layout_toRightOf="@+id/img_summary_handpiece" />
+
+
+
+    <ImageButton
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:id="@+id/summery_continue"
+        android:background="@drawable/continuebut"
+        android:layout_marginLeft="220dp"
+        android:layout_below="@+id/img_summary_cav" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView5"
+        android:background="@drawable/powerc"
+        android:layout_alignTop="@+id/img_summary_low"
+        android:layout_alignLeft="@+id/img_summary_freq"
+        android:layout_alignStart="@+id/img_summary_freq" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_summary_freq"
+        android:background="@drawable/startc"
+        android:layout_alignBottom="@+id/img_summary_high"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView7"
+        android:background="@drawable/timec"
+        android:layout_below="@+id/imageView5"
+        android:layout_alignRight="@+id/imageView5"
+        android:layout_alignEnd="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/txt_summery_freq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Error Happened in kernel"
+        android:textColor="#ac0018"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/img_summary_freq"
+        android:layout_toRightOf="@+id/img_summary_freq"
+        android:layout_toEndOf="@+id/img_summary_freq" />
+
+    <TextView
+        android:id="@+id/txt_summery_power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Error Happened in kernel"
+        android:textColor="#ac0018"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_alignLeft="@+id/txt_summery_freq"
+        android:layout_alignStart="@+id/txt_summery_freq" />
+
+    <TextView
+        android:id="@+id/txt_summery_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Error Happened in kernel"
+        android:textColor="#ac0018"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/img_summary_low"
+        android:layout_alignLeft="@+id/txt_summery_power"
+        android:layout_alignStart="@+id/txt_summery_power" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/img_summary_vacuum"
+        android:background="@drawable/vacuumc"
+        android:layout_below="@+id/txt_summery_pulse"
+        android:layout_toLeftOf="@+id/txt_summery_vacuum"
+        android:layout_toStartOf="@+id/txt_summery_vacuum"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/txt_summery_pulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Error Happened in kernel"
+        android:textColor="#ac0018"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/imageView7"
+        android:layout_alignLeft="@+id/txt_summery_time"
+        android:layout_alignStart="@+id/txt_summery_time" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/img_summary_pulse"
+        android:background="@drawable/pulsec"
+        android:layout_below="@+id/txt_summery_time"
+        android:layout_toLeftOf="@+id/txt_summery_pulse"
+        android:layout_toStartOf="@+id/txt_summery_pulse" />
+
+    <TextView
+        android:id="@+id/txt_summery_vacuum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Error Happened in kernel"
+        android:textColor="#ac0018"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/img_summary_high"
+        android:layout_alignLeft="@+id/txt_summery_pulse"
+        android:layout_alignStart="@+id/txt_summery_pulse" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/img_summary_handpiece"
+        android:layout_alignTop="@+id/txt_summery_power"
+        android:layout_toRightOf="@+id/summery_continue"
+        android:layout_toEndOf="@+id/summery_continue" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/img_summary_high"
+        android:background="@drawable/socketde"
+        android:layout_below="@+id/txt_summery_monobi"
+        android:layout_alignLeft="@+id/img_summary_low"
+        android:layout_alignStart="@+id/img_summary_low" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/img_summary_low"
+        android:background="@drawable/socketde"
+        android:layout_below="@+id/img_summary_high"
+        android:layout_toRightOf="@+id/img_summary_handpiece"
+        android:layout_toEndOf="@+id/img_summary_handpiece" />
+
+
+</RelativeLayout>
