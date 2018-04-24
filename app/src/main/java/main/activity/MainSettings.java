@@ -1,14 +1,21 @@
 package main.activity;
 
 
+import android.app.ActivityManager;
+import android.app.KeyguardManager;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +24,7 @@ import com.Tirax.plasma.Enums.ShotTypes;
 import com.Tirax.plasma.Manager;
 import com.Tirax.plasma.Mode;
 import com.Tirax.plasma.MyActivity;
+import com.Tirax.plasma.MyDeviceAdminReciver;
 import com.Tirax.plasma.SerialPortsHardware.DataProvider;
 import com.Tirax.plasma.R;
 import com.Tirax.plasma.Storage.Values;
@@ -29,6 +37,8 @@ public class MainSettings extends MyActivity implements OnClickListener {
 	private boolean shotAutoDecrement = false;
 	private boolean pulseAutoIncrement = false;
 	private boolean pulseAutoDecrement = false;
+	private boolean pulseIsActive = false;
+	private boolean shotIsActive = false;
 	private Handler repeatUpdateHandler = new Handler();
 	private TextView powerText ;
 	private TextView LengthText;
@@ -39,6 +49,11 @@ public class MainSettings extends MyActivity implements OnClickListener {
 	public int shotValue;
 	public int pulseValue;
 	public boolean started=false;
+	private Integer pedalTime=0;
+	private boolean isLocked=false;
+	private Handler UIHandler = new Handler();
+	public int PedalWasActive=0;
+	public boolean finished=true;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +64,7 @@ public class MainSettings extends MyActivity implements OnClickListener {
 		shotText = (TextView) findViewById(R.id.txt_shot);
 		pulseText = (TextView) findViewById(R.id.txt_pulse);
 
+		finished=false;
 		powerValue =10;
 		lengthValue =20;
 		shotValue =10;
@@ -57,6 +73,7 @@ public class MainSettings extends MyActivity implements OnClickListener {
 		updateLengthValue();
 		updatePowerValue();
 		updateShotValue();
+		updatePulseValue();
 
 		Button setting=(Button) findViewById(R.id.btn_settings);
 		Button ready=(Button) findViewById(R.id.btn_ready_pause);
@@ -74,6 +91,7 @@ public class MainSettings extends MyActivity implements OnClickListener {
 		//spray activation
 		ImageView img = (ImageView) findViewById(R.id.img_shotype) ;
 		img.setImageResource(R.drawable.sprayactive);
+		UIHandler.postDelayed(UIreportsRunnable, 0);
 	}
 
 	private void initializeTypeButtons() {
@@ -241,7 +259,15 @@ public class MainSettings extends MyActivity implements OnClickListener {
 				updatePowerValue();
 			}
 		});
-
+		seekArcPower.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent) {
+				if (PedalWasActive > 0)
+					return true;
+				else
+					return false;
+			}
+		});
 		seekArcLength.setOnSeekArcChangeListener(new ShaderSeekArc.OnSeekArcChangeListener() {
 
 			@Override
@@ -261,6 +287,15 @@ public class MainSettings extends MyActivity implements OnClickListener {
 				updateLengthValue();
 			}
 		});
+		seekArcLength.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent) {
+				if (PedalWasActive > 0)
+					return true;
+				else
+					return false;
+			}
+		});
 	}
 
 	private void updateLengthValue() {
@@ -277,93 +312,127 @@ public class MainSettings extends MyActivity implements OnClickListener {
 		}
 	}
 	private void updatePulseValue() {
-		pulseText.setText(""+pulseValue);
-		if(started) {
-			DataProvider.setRegister(DataProvider.RFDLY, (char) (pulseValue));
+		if(pulseIsActive) {
+			pulseText.setText("" + (double) (pulseValue / 10.0));
+			if (started) {
+				DataProvider.setRegister(DataProvider.RFDLY, (char) (pulseValue));
+			}
+		}else{
+			pulseText.setText("--");
+			if (started) ;
+				DataProvider.setRegister(DataProvider.RFDLY, (char) 0);
 		}
 	}
 	private void updateShotValue() {
-		shotText.setText("" + (double)(shotValue /10.0));
-		if(started);
-			DataProvider.setRegister(DataProvider.RFRSHt, (char) shotValue);
+		if(shotIsActive) {
+			shotText.setText("" + (double) (shotValue / 10.0));
+			if (started)
+				DataProvider.setRegister(DataProvider.RFRSHt, (char) shotValue);
+		}else{
+			shotText.setText("--");
+			if (started) ;
+				DataProvider.setRegister(DataProvider.RFRSHt, (char) 0);
+		}
 	}
 
 
 	public void decrementShot(){
-		shotValue /=2;
-		if(shotValue <2) {
-			shotValue = 0;
+		if(shotIsActive && PedalWasActive<=0) {
+			shotValue -= 5;
+			if (shotValue < 0) {
+				shotValue = 0;
+			}
+			updateShotValue();
 		}
-		updateShotValue();
 
 	}
 	public void incrementShot(){
-		shotValue *=2;
-		if(shotValue ==0)
-			shotValue =2;
-		if(shotValue >32)
-			shotValue =32;
-		updateShotValue();
+		if(shotIsActive && PedalWasActive<=0) {
+			shotValue += 5;
+			if (shotValue == 0)
+				shotValue = 2;
+			if (shotValue > 50)
+				shotValue = 50;
+			updateShotValue();
+		}
 	}
 	public void decrementPulse(){
-		pulseValue --;
-		if(pulseValue <0) {
-			pulseValue = 0;
+		if(pulseIsActive && PedalWasActive<=0) {
+			pulseValue--;
+			if (pulseValue < 0) {
+				pulseValue = 0;
+			}
+			updatePulseValue();
 		}
-		updatePulseValue();
 
 	}
 	public void incrementPulse(){
-		pulseValue ++;
-		if(pulseValue >100)
-			pulseValue=100;
-		updatePulseValue();
+		if(pulseIsActive && PedalWasActive<=0) {
+			pulseValue++;
+			if (pulseValue > 20)
+				pulseValue = 20;
+			updatePulseValue();
+		}
 	}
 
 	@Override
 	public void onClick(View arg0) {
-		if(arg0.getId() == R.id.btn_back)
-			this.finish();
-		if(arg0.getId() == R.id.btn_spray){
-			Values.shotType = ShotTypes.SPRAY;
-			ImageView img = (ImageView) findViewById(R.id.img_shotype) ;
-			img.setImageResource(R.drawable.sprayactive);
-		}
-		if(arg0.getId() == R.id.btn_dot){
-			Values.shotType = ShotTypes.DOT;
-			ImageView img = (ImageView) findViewById(R.id.img_shotype) ;
-			img.setImageResource(R.drawable.dotactive);
-		}
-		if(arg0.getId() == R.id.btn_pulse){
-			Values.shotType = ShotTypes.PULSE;
-			ImageView img = (ImageView) findViewById(R.id.img_shotype) ;
-			img.setImageResource(R.drawable.pulseactive);
-		}
-		if(arg0.getId() == R.id.btn_settings){
-			Intent int_next = new Intent(MainSettings.this,EnterPassActivity.class);
-			startActivity(int_next);
-		}
-		if(arg0.getId() == R.id.btn_ready_pause){
-			//DO start functions
-			RelativeLayout back = (RelativeLayout) findViewById(R.id.background_RelativeLayout);
-			if(!started) {
-				Values.shot = this.shotValue;
-				Values.length = this.lengthValue;
-				Values.power = this.powerValue;
-				Values.pulse = this.pulseValue;
-
-				Mode op = Manager.getType();
-				com.Tirax.plasma.Compiler.setRegisters(op);
-				started=true;
-				back.setBackgroundDrawable(getResources().getDrawable(R.drawable.fractionalmainpause));
-			}else{
-				started=false;
-				back.setBackgroundDrawable(getResources().getDrawable(R.drawable.fractionalmainready));
-				DataProvider.setRegister(DataProvider.RPWR, (char) 0);
+		if(PedalWasActive<=0) {
+			if (arg0.getId() == R.id.btn_back)
+				this.finish();
+			if (arg0.getId() == R.id.btn_spray) {
+				Values.shotType = ShotTypes.SPRAY;
+				ImageView img = (ImageView) findViewById(R.id.img_shotype);
+				img.setImageResource(R.drawable.sprayactive);
+				pulseIsActive = false;
+				shotIsActive = false;
+				updatePulseValue();
+				updateShotValue();
 			}
-		}
+			if (arg0.getId() == R.id.btn_dot) {
+				Values.shotType = ShotTypes.DOT;
+				ImageView img = (ImageView) findViewById(R.id.img_shotype);
+				img.setImageResource(R.drawable.dotactive);
+				pulseIsActive = true;
+				shotIsActive = true;
+				updatePulseValue();
+				updateShotValue();
+			}
+			if (arg0.getId() == R.id.btn_pulse) {
+				Values.shotType = ShotTypes.PULSE;
+				ImageView img = (ImageView) findViewById(R.id.img_shotype);
+				img.setImageResource(R.drawable.pulseactive);
+				pulseIsActive = true;
+				shotIsActive = false;
+				updatePulseValue();
+				updateShotValue();
+			}
+			if (arg0.getId() == R.id.btn_settings) {
+				Intent int_next = new Intent(MainSettings.this, EnterPassActivity.class);
+				startActivity(int_next);
+			}
+			if (arg0.getId() == R.id.btn_ready_pause) {
+				//DO start functions
+				RelativeLayout back = (RelativeLayout) findViewById(R.id.background_RelativeLayout);
+				if (!started) {
+					Values.shot = shotIsActive ? this.shotValue : 0;
+					Values.length = this.lengthValue;
+					Values.power = this.powerValue;
+					Values.pulse = pulseIsActive ? this.pulseValue : 0;
 
-		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+					Mode op = Manager.getType();
+					com.Tirax.plasma.Compiler.setRegisters(op);
+					started = true;
+					back.setBackgroundDrawable(getResources().getDrawable(R.drawable.fractionalmainpause));
+				} else {
+					started = false;
+					back.setBackgroundDrawable(getResources().getDrawable(R.drawable.fractionalmainready));
+					DataProvider.setRegister(DataProvider.RPWR, (char) 0);
+				}
+			}
+
+			overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+		}
 				
 	}
 
@@ -396,5 +465,70 @@ public class MainSettings extends MyActivity implements OnClickListener {
 				repeatUpdateHandler.postDelayed(new RptPulseUpdater(), REP_DELAY);
 			}
 		}
+	}
+	Runnable UIreportsRunnable = new Runnable() {
+
+		@Override
+		public void run() {
+
+
+			if(DataProvider.getPedalisActive()){
+				if(PedalWasActive<=0)
+					lock();
+				PedalWasActive=100;
+				pedalTime++;
+			}
+			else{
+				PedalWasActive--;
+			}
+			if(PedalWasActive<=0 && isLocked)
+				unlock();
+			if(!finished)
+				UIHandler.postDelayed(UIreportsRunnable, 1);
+		}
+
+	};
+	private void lock() {
+
+		//Lock device
+		// Enable the Administrator mode.
+		DevicePolicyManager deviceManger = (DevicePolicyManager) getSystemService(
+				Context.DEVICE_POLICY_SERVICE );
+		ActivityManager activityManager = (ActivityManager) getSystemService(
+				Context.ACTIVITY_SERVICE );
+		ComponentName compName = new ComponentName( getApplicationContext( ),
+				MyDeviceAdminReciver.class);
+		Intent device_policy_manager_Int = new Intent( DevicePolicyManager
+				.ACTION_ADD_DEVICE_ADMIN );
+		device_policy_manager_Int.putExtra( DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+				compName );
+		device_policy_manager_Int.putExtra( DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+				"Additional text explaining why this needs to be added." );
+		startActivityForResult(device_policy_manager_Int, 1);
+
+		// Check if the Administrator is enabled.
+		boolean active = deviceManger.isAdminActive(compName);
+
+		if ( active ) {
+			Log.i("isAdminActive", "Admin enabled!");
+
+			// If admin is enable - Lock device.
+			deviceManger.lockNow( );
+		}
+		isLocked = true;
+	}
+
+	private void unlock(){
+		//Unlock
+		KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+		final KeyguardManager.KeyguardLock kl = km .newKeyguardLock("MyKeyguardLock");
+		kl.disableKeyguard();
+
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
+				| PowerManager.ACQUIRE_CAUSES_WAKEUP
+				| PowerManager.ON_AFTER_RELEASE, "MyWakeLock");
+		wakeLock.acquire();
+		isLocked=false;
 	}
 }

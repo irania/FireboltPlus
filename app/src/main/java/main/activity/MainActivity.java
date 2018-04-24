@@ -203,9 +203,9 @@ public class MainActivity  extends Activity    implements OnClickListener{
 				if(DataProvider.isInUIError() && DataProvider.isUIError()){
 					if(LogCatEnabler.errorHappened)
 						Log.e("TIRAX", "i am in error ui"+ DataProvider.getUIError());
-					ErrorDialog dlgAlertError = new ErrorDialog(nowActivity);
-					dlgAlertError.show();
-					dlgAlertError.textDia.setText("Error Number " + DataProvider.getUIError());
+					//ErrorDialog dlgAlertError = new ErrorDialog(nowActivity);
+					//dlgAlertError.show();
+					//dlgAlertError.textDia.setText("Error Number " + DataProvider.getUIError());
 
 				}
 			}catch(Exception ex){

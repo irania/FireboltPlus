@@ -16,7 +16,7 @@ public class Compiler {
         DataProvider.setRegister(DataProvider.RPWR, (char) (mode.power*mode.powerMultiplyer+mode.powerAdder));
 
         if (LogCatEnabler.compilerSetRegLog) {
-            Log.e("TIRAXREG", "POWER" + mode.powerMultiplyer);
+            Log.e("TIRAXREG", "POWER" + mode.power*mode.powerMultiplyer+mode.powerAdder);
         }
     }
 
