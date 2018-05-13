@@ -473,7 +473,7 @@ public class MainSettings extends MyActivity implements OnClickListener {
 
 
 			if(DataProvider.getPedalisActive()){
-				if(PedalWasActive<=0)
+				if(PedalWasActive<=0 && started )
 					lock();
 				PedalWasActive=100;
 				pedalTime++;
