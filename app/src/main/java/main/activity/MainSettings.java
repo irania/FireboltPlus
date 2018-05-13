@@ -67,7 +67,7 @@ public class MainSettings extends MyActivity implements OnClickListener {
 		finished=false;
 		powerValue =10;
 		lengthValue =20;
-		shotValue =10;
+		shotValue =20;
 		pulseValue =10;
 
 		updateLengthValue();
@@ -225,7 +225,7 @@ public class MainSettings extends MyActivity implements OnClickListener {
 
 		// notice the endValue must large than startValue,
 		// and progress should between them
-		seekArcPower.setStartValue(0);
+		seekArcPower.setStartValue(5);
 		seekArcPower.setEndValue(100);
 		seekArcPower.setProgress(powerValue);
 		seekArcLength.setStartValue(0);
@@ -313,7 +313,7 @@ public class MainSettings extends MyActivity implements OnClickListener {
 	}
 	private void updatePulseValue() {
 		if(pulseIsActive) {
-			pulseText.setText("" + (double) (pulseValue / 10.0));
+			pulseText.setText("" + String.format("%.2f",(double) (pulseValue / 20.0)));
 			if (started) {
 				DataProvider.setRegister(DataProvider.RFDLY, (char) (pulseValue));
 			}
@@ -325,7 +325,7 @@ public class MainSettings extends MyActivity implements OnClickListener {
 	}
 	private void updateShotValue() {
 		if(shotIsActive) {
-			shotText.setText("" + (double) (shotValue / 10.0));
+			shotText.setText("" + String.format("%.2f",(double) (shotValue / 20.0)));
 			if (started)
 				DataProvider.setRegister(DataProvider.RFRSHt, (char) shotValue);
 		}else{
@@ -338,9 +338,9 @@ public class MainSettings extends MyActivity implements OnClickListener {
 
 	public void decrementShot(){
 		if(shotIsActive && PedalWasActive<=0) {
-			shotValue -= 5;
-			if (shotValue < 0) {
-				shotValue = 0;
+			shotValue -= 4;
+			if (shotValue < 4) {
+				shotValue = 4;
 			}
 			updateShotValue();
 		}
@@ -348,19 +348,19 @@ public class MainSettings extends MyActivity implements OnClickListener {
 	}
 	public void incrementShot(){
 		if(shotIsActive && PedalWasActive<=0) {
-			shotValue += 5;
+			shotValue += 4;
 			if (shotValue == 0)
-				shotValue = 2;
-			if (shotValue > 50)
-				shotValue = 50;
+				shotValue = 4;
+			if (shotValue > 40)
+				shotValue = 40;
 			updateShotValue();
 		}
 	}
 	public void decrementPulse(){
 		if(pulseIsActive && PedalWasActive<=0) {
 			pulseValue--;
-			if (pulseValue < 0) {
-				pulseValue = 0;
+			if (pulseValue < 1) {
+				pulseValue = 1;
 			}
 			updatePulseValue();
 		}
